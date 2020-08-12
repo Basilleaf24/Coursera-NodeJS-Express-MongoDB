@@ -17,6 +17,15 @@ var leaderRouter = require('./routes/leaderRouter');
 
 var app = express();
 
+app.all('*', (req, res, next) => {
+  if (req.secure) {//if requests are already made to the secure https 3443 server
+    return next();
+  }
+  else {//redirecting to secure https 3443 server if request is made to insecure(3000) server
+    res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
+  }//307 tells user agent to retry with same method they had used for original endpoint
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
