@@ -11,6 +11,7 @@ var User = new Schema({
         type: String,
           default: ''
       },
+    facebookId: String,//will be configured in authenticate.js
     admin:   {
         type: Boolean,
         default: false
