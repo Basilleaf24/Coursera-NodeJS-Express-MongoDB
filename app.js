@@ -15,6 +15,18 @@ var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 var uploadRouter = require('./routes/uploadRouter');
+var favRouter = require('./routes/favRouter');
+
+const mongoose = require('mongoose');//mongoose is needed for connecting express with mongodb
+
+const Dishes = require('./models/dishes');
+
+const url = config.mongoUrl;
+const connect = mongoose.connect(url);
+
+connect.then((db) => {
+    console.log("Connected correctly to server");
+}, (err) => { console.log(err); });
 
 var app = express();
 
@@ -45,18 +57,7 @@ app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leaders',leaderRouter);
 app.use('/imageUpload',uploadRouter);
-
-const mongoose = require('mongoose');//mongoose is needed for connecting express with mongodb
-
-const Dishes = require('./models/dishes');
-
-const url = config.mongoUrl;
-const connect = mongoose.connect(url);
-
-connect.then((db) => {
-    console.log("Connected correctly to server");
-}, (err) => { console.log(err); });
-
+app.use('/favorites',favRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
