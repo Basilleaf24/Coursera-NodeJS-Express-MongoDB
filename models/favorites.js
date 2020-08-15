@@ -10,10 +10,8 @@ const favoriteSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,//it has to be used like this if population is used
         ref: 'Dish'//exported from dishes.js        
     }]
-},{
-    timestamps: true
 });
 
-var Favorites = mongoose.model('Favorite', favoriteSchema);//creating model using favoriteSchema
+const Favorites = mongoose.model('Favorites', favoriteSchema);//creating model using favoriteSchema
 
 module.exports = Favorites;
